@@ -11,26 +11,70 @@ public class Player : MonoBehaviour
     public bool podePuloDuplo = false;
 
     private Rigidbody2D rig;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         TryGetComponent(out rig);
+        TryGetComponent(out animator);
     }
 
     // Update is called once per frame
     void Update()
     {
         Movimento();
-        Pulo();
+        PuloOG();
     }
 
     void Movimento()
     {
-        Vector3 mov = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        float inputX = Input.GetAxisRaw("Horizontal");
+
+        Vector3 mov = new Vector3(inputX, 0, 0);
         transform.position += mov * Time.deltaTime * velocidade;
+
+        if(inputX > 0)
+        {
+            animator.SetBool("andando", true);
+            transform.eulerAngles = new Vector3(0,0,0);
+        }
+        else if(inputX < 0)
+        {
+            animator.SetBool("andando", true);
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else
+        {
+            animator.SetBool("andando", false);
+        }
+        
     }
 
+    void PuloOG()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (!noAr)
+            {
+                rig.AddForce(new Vector2(0, forcaPulo), ForceMode2D.Impulse);
+                podePuloDuplo = true;
+                animator.SetBool("pulando", true);
+            }
+            else
+            {
+                if (podePuloDuplo)
+                {                    
+                    rig.AddForce(new Vector2(0, forcaPulo), ForceMode2D.Impulse);
+                    podePuloDuplo = false;
+                    animator.SetBool("pulando", true);
+                }
+            }
+
+
+
+        }
+    }
     void Pulo()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -66,6 +110,7 @@ public class Player : MonoBehaviour
         {
             noAr = false;
             podePuloDuplo = false;
+            animator.SetBool("pulando", false);
         }
     }
 
@@ -74,6 +119,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             noAr = true;
+            animator.SetBool("pulando", true);
         }
     }
 }
