@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particula: {fileID: 5010904880394543211}
+  pontos: 1
 --- !u!58 &6362317742131382412
 CircleCollider2D:
   m_ObjectHideFlags: 0

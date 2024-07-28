@@ -10,6 +10,8 @@ public class Fruta : MonoBehaviour
 
     public GameObject particula;
 
+    public int pontos = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,8 @@ public class Fruta : MonoBehaviour
             particula.SetActive(true);
 
             Destroy(gameObject, 0.3f);
+
+            GameController.instance.AtualizarPontos(pontos);
 
         }
     }
