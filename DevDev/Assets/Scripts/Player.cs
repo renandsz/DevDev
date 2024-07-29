@@ -112,6 +112,12 @@ public class Player : MonoBehaviour
             podePuloDuplo = false;
             animator.SetBool("pulando", false);
         }
+
+        if (collision.gameObject.CompareTag("Espinho"))
+        {
+            GameController.instance.GameOver();
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
