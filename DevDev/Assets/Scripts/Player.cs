@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Patterns;
 
 public class Player : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class Player : MonoBehaviour
                 rig.AddForce(new Vector2(0, forcaPulo), ForceMode2D.Impulse);
                 podePuloDuplo = true;
                 animator.SetBool("pulando", true);
+                SpecialEffectsObserverManager.SpawnParticle(transform.position);
+                AudioObserverManager.OnSfxPlayEvent("pulo");
             }
             else
             {
@@ -68,6 +71,8 @@ public class Player : MonoBehaviour
                     rig.AddForce(new Vector2(0, forcaPulo), ForceMode2D.Impulse);
                     podePuloDuplo = false;
                     animator.SetBool("pulando", true);
+                    SpecialEffectsObserverManager.SpawnParticle(transform.position);
+                    AudioObserverManager.OnSfxPlayEvent("pulo");
                 }
             }
 
@@ -111,6 +116,7 @@ public class Player : MonoBehaviour
             noAr = false;
             podePuloDuplo = false;
             animator.SetBool("pulando", false);
+            AudioObserverManager.OnSfxPlayEvent("aterisar");
         }
 
         if (collision.gameObject.CompareTag("Espinho"))

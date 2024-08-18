@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fruta : MonoBehaviour
 {
-    private SpriteRenderer renderer;
+    private SpriteRenderer _renderer;
 
     private CircleCollider2D trigger;
 
@@ -15,7 +15,7 @@ public class Fruta : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TryGetComponent(out renderer);
+        TryGetComponent(out _renderer);
         TryGetComponent(out trigger);
     }
 
@@ -23,7 +23,7 @@ public class Fruta : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            renderer.enabled = false;
+            _renderer.enabled = false;
             trigger.enabled = false;
             particula.SetActive(true);
 

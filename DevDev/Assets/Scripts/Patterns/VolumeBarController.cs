@@ -7,18 +7,20 @@ namespace Patterns
     public class VolumeBarController : MonoBehaviour
     {
         [SerializeField] private Slider volumeSlider;
+        [SerializeField] private Toggle toggle;
 
         private void Awake()
         {
             TryGetComponent(out volumeSlider);
+            TryGetComponent(out toggle);
         }
 
         private void Start()
         {
-            volumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
+           // volumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
         }
 
-        private void OnVolumeSliderChanged(float volume)
+        public void OnVolumeSliderChanged(float volume)
         {
             AudioObserverManager.VolumeChanged(DenormalizeVolume(volume));
         }
@@ -51,6 +53,12 @@ namespace Patterns
                 return (normalizedVolume - 0.5f) * (6 - (-6)) / 0.5f + (-6);
             }
             
+        }
+
+        public void ToggleLowpass(bool lowpass)
+        {
+            //AudioObserverManager.OnToggleLowpass(lowpass);
+            AudioObserverManager.OnUnderwaterSnapshotEvent(lowpass);
         }
 
     }

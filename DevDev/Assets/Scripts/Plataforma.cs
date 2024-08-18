@@ -8,14 +8,14 @@ public class Plataforma : MonoBehaviour
 
     private TargetJoint2D joint;
     private BoxCollider2D colisor;
-    private SpriteRenderer renderer;
+    private SpriteRenderer _renderer;
 
     private Vector3 posicaoOriginal;
     private void Awake()
     {
         TryGetComponent(out joint);
         TryGetComponent(out colisor);
-        TryGetComponent(out  renderer);
+        TryGetComponent(out  _renderer);
         posicaoOriginal = transform.position;
     }
 
@@ -23,7 +23,7 @@ public class Plataforma : MonoBehaviour
     {
         joint.enabled = true;
         colisor.isTrigger = false;
-        renderer.enabled = true;
+        _renderer.enabled = true;
         transform.position = posicaoOriginal;
     }
 
@@ -53,7 +53,7 @@ public class Plataforma : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameOver"))
         {
             //Destroy(gameObject);
-            renderer.enabled = false;
+            _renderer.enabled = false;
             Invoke(nameof(Inicializar), tempoCair);
         }
     }
